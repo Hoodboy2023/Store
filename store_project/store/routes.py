@@ -1,8 +1,8 @@
-from store._init_ import app
+from store import app
 from flask import render_template, redirect, url_for, flash, request
 from store.models import Item, User
 from store.forms import RegisterForm, LoginForm, PurchaseItemForm, SellItemForm
-from store._init_ import db
+from store import db
 from flask_login import login_user, logout_user, login_required, current_user
 
 @app.route('/')
