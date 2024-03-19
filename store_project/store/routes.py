@@ -8,6 +8,10 @@ from flask_login import login_user, logout_user, login_required, current_user
 @app.route('/')
 @app.route('/home')
 def home_page():
+    with app.app_context:
+        item1 = Item(name="IPhone 15",price=600, barcode="123456789012", description="desc")
+        db.session.add(item1)
+        db.session.commit()
     return render_template('home.html')
 
 @app.route('/market', methods=['GET', 'POST'])
@@ -55,8 +59,8 @@ def register_page():
         login_user(user_to_create)
         flash(f"Account created successfully! You are now logged in as {user_to_create.username}", category='success')
         return redirect(url_for('market_page'))
-    if form.errors != {}: #If there are not errors from the validations
-        for err_msg in form.errors.values():
+    if form.email_address.errors != {}: #If there are not errors from the validations
+        for err_msg in form.email_address.errors:
             flash(f'There was an error with creating a user: {err_msg}', category='danger')
 
     return render_template('register.html', form=form)
