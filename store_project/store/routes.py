@@ -8,10 +8,9 @@ from flask_login import login_user, logout_user, login_required, current_user
 @app.route('/')
 @app.route('/home')
 def home_page():
-    with app.app_context:
-        item1 = Item(name="IPhone 15",price=600, barcode="123456789012", description="desc")
-        db.session.add(item1)
-        db.session.commit()
+    item1 = Item(name="IPhone 15",price=600, barcode="123456789012", description="desc")
+    db.session.add(item1)
+    db.session.commit()
     return render_template('home.html')
 
 @app.route('/market', methods=['GET', 'POST'])
