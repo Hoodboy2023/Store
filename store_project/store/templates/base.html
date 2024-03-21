@@ -60,11 +60,11 @@
               <div class="alert alert-{{ category }}">
                 {{ message }}
                   <button type="button" class="m1-2 mb-1 close" data-dismiss="alert" aria-label="Close">
-                      
+                      <span aria-hidden="true">&times;</span>
                   </button>
                  
               </div>
-           {% endfor %} 
+           {% endfor %}
         {% endif %}
       {% endwith %}
       {% block content %}
