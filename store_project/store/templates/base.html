@@ -6,6 +6,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
       <!-- Bootstrap CSS -->
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+      <linK rel="stylesheet" href="static/styles.css">
       <title>
           {% block title %}
 
@@ -13,35 +14,43 @@
       </title>
    </head>
    <body>
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-      <a class="navbar-brand" href="#">Flask Market</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav mr-auto">
+    <header>
+    <nav class="navbar navbar-expand navbar-dark bg-dark" style="width: 100%;">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand mr-auto" style="font-weight: bold" href="#">Urban Store</a>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+          
+          <ul class="navbar-nav ml-2 mr-auto mt-lg-0">
             <li class="nav-item active">
-                <a class="nav-link" href="{{ url_for('home_page') }}">Home <span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="{{ url_for('home_page') }}">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('market_page') }}">Market</a>
+              <a class="nav-link" style="color: white;" href="{{ url_for('market_page') }}">Store</a>
             </li>
-        </ul>
+          </ul>
           {% if current_user.is_authenticated %}
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" style="color: lawngreen; font-weight: bold">
-                        <i class="fas fa-coins"></i>
-                        {{ current_user.prettier_budget }}
-                    </a>
+            <ul class="navbar-nav ">
+                <li class="nav-item dropdown mr-3">
+                  <a class="nav-link dropdown-toggle ml-2" style="color: white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+                      <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
+                    </svg>
+                  </a>
+                  <div class="dropdown-menu "  aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{{ url_for('profile_page')}}">Profile</a>
+                    <a class="dropdown-item" href="{{ url_for('logout_page') }}">Logout</a> 
+                  </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link">Welcome, {{ current_user.username }}</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('logout_page') }}">Logout</a>
+                    <button class="nav-link navbar-dark bg-dark mr-3"  id="cartButton"><svg style="color:white" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-cart4" viewBox="0 0 16 16">
+                      <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5M3.14 5l.5 2H5V5zM6 5v2h2V5zm3 0v2h2V5zm3 0v2h1.36l.5-2zm1.11 3H12v2h.61zM11 8H9v2h2zM8 8H6v2h2zM5 8H3.89l.5 2H5zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0m9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0"/>
+                    </svg></button>
                 </li>
             </ul>
+            
+            
           {% else %}
             <ul class="navbar-nav">
                 <li class="nav-item">
@@ -51,9 +60,12 @@
                     <a class="nav-link" href="{{ url_for('register_page') }}">Register</a>
                 </li>
             </ul>
-          {% endif %}
-      </div>
-    </nav>
+          {% endif %}          
+        </div>
+        
+      </nav>
+    </header>
+    <main>
       {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
            {% for category, message in messages %}
@@ -67,24 +79,49 @@
            {% endfor %}
         {% endif %}
       {% endwith %}
+      
+      <div class="row position-relative" id="content"></div>
       {% block content %}
+     
 
       {% endblock %}
-      <!-- Future Content here -->
-
-
-
-      <!-- Optional JavaScript -->
-      <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+      {% if current_user.is_authenticated %}
+      <div class="col-6 col-lg-4 shadow-lg" id="cart">
+        <h2>Owned Items</h2>
+        <p>Click on sell item to put an item back on the Market</p>
+        <br>
+        <div class="row">
+           {% for owned_item in owned_items %}
+           {% include 'includes/owned_items_modals.html' %}
+             <div class="col-12">
+                 <div style="margin-bottom: 5px" class="card text-center bg-dark">
+                      <div class="card-body">
+                          <h5 class="card-title">{{ owned_item.name }}</h5>
+                          <button type="button" class="btn btn-outline-danger" style="margin-bottom: 5px"
+                                  data-toggle="modal" data-target="#Modal-SellingConfirm-{{ owned_item.id }}">
+                              Sell this Item
+                          </button>
+                          <p class="card-text"><strong>
+                              This item costs {{ owned_item.price }}$
+                          </strong></p>
+                      </div>
+                  </div>
+             </div>
+           {% endfor %}
+        </div>
+     </div> 
+      {% endif %}
+      </div>
+    </main>
       <script src='https://kit.fontawesome.com/a076d05399.js'></script>
       <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
       <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
       <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-   </body>
+      <script src="static/store.js"></script>
+    </body>
    <style>
-      body {
-      background-color: #212121;
-      color: white
-      }
+     
+      
+      
    </style>
 </html>

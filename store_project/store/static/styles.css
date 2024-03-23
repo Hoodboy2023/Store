@@ -1,0 +1,50 @@
+body {
+    position: relative;
+    background-color: #212121;
+    color: white
+    }
+* {
+      box-sizing: border-box;
+    } 
+ 
+#content {
+    margin: 20px auto;
+}    
+
+#cart {
+    display: none;
+    position: absolute;
+    left: 49%;
+    top: 21%;
+    border: 2px solid white;  
+    background-color: #212121;
+    border-radius: 10px;
+}
+
+#cartButton {
+    border: none;
+}
+
+#profile_nav{
+    width: 40vw;
+    height: 4vw;
+    border: 2px solid white;
+    border-radius: 20px;
+}
+
+
+#profile_nav_info {
+    padding: 0.75vw 11.5vw;
+}
+
+@media (min-width: 992px) { 
+    #cart{
+    display: none;
+    position: absolute;
+    left: 66%;
+    top: 21%;
+    border: 2px solid white;  
+    background-color: #212121;
+    border-radius: 10px; 
+    }
+}

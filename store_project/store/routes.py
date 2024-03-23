@@ -21,6 +21,7 @@ def market_page():
     if request.method == "POST":
         #Purchase Item Logic
         purchased_item = request.form.get('purchased_item')
+        
         p_item_object = Item.query.filter_by(name=purchased_item).first()
         if p_item_object:
             if current_user.can_purchase(p_item_object):
@@ -80,8 +81,18 @@ def login_page():
 
     return render_template('login.html', form=form)
 
+
+@app.route('/profile', methods=['GET','POST'])
+def profile_page():
+    return render_template("user_profile.html")
+
+
+
+
 @app.route('/logout')
 def logout_page():
     logout_user()
     flash("You have been logged out!", category='info')
     return redirect(url_for("home_page"))
+hey = User()
+name = hey.username
