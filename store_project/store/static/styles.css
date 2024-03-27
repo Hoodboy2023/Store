@@ -1,7 +1,7 @@
 body {
     position: relative;
     background-color: #212121;
-    color: white
+    color: white;
     }
 * {
       box-sizing: border-box;
@@ -15,7 +15,7 @@ body {
     display: none;
     position: absolute;
     left: 49%;
-    top: 21%;
+    top: 56px;
     border: 2px solid white;  
     background-color: #212121;
     border-radius: 10px;
@@ -34,7 +34,10 @@ body {
 
 
 #profile_nav_info {
-    padding: 0.75vw 11.5vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
 }
 
 @media (min-width: 992px) { 
@@ -42,9 +45,40 @@ body {
     display: none;
     position: absolute;
     left: 66%;
-    top: 21%;
+    top: 56px;
     border: 2px solid white;  
     background-color: #212121;
     border-radius: 10px; 
     }
+}
+
+#profile_nav_info button {
+    background-color: #212121;
+    border: none;
+    font-size: 1.7vw;
+    color: white;
+    margin: 3px auto;
+    padding: auto;
+    outline: none;
+}
+
+
+@media only screen and (max-width: 768px) {
+
+    #profile_nav{
+        width: 50vw;
+        height: 7vw;
+        border: 2px solid rgb(255, 255, 255);
+        border-radius: 20px;
+    }
+    #profile_nav_info button {
+        background-color: #212121;
+        border: none;
+        font-size: 3.3vw;
+        color: white;
+        margin: 2px auto;
+        padding: auto;
+        outline: none;
+    }
+    
 }
