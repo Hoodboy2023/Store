@@ -6,7 +6,7 @@
 {% block content %}
 <body class="text-center">
     <div class="container">
-        <form method="POST" class="form-signin" style="color:white">
+        <form method="POST" class="form-signin " style="color:white">
             {{ form.hidden_tag() }}
             <img class="mb-4" src="https://res.cloudinary.com/jimshapedcoding/image/upload/v1597332609/android-icon-192x192_ove2a7.png" alt="">
             <h1 class="h3 mb-3 font-weight-normal">
@@ -14,20 +14,19 @@
             </h1>
             <br>
             {{ form.username.label() }}
-            {{ form.username(class="form-control", placeholder="User Name") }}
+            {{ form.username(class="form-control w-50 mx-auto", placeholder="User Name") }}
 
             {{ form.password.label() }}
-            {{ form.password(class="form-control", placeholder="Password") }}
+            {{ form.password(class="form-control w-50 mx-auto", placeholder="Password") }}
 
             <br>
 
+            {{ form.submit(class="btn btn-lg btn-block btn-primary w-25 mx-auto mb-2") }}
 
             <div class="checkbox mb-3">
                <h6>Do not have an account?</h6>
                <a class="btn btn-sm btn-secondary" href="{{ url_for('register_page') }}">Register</a>
             </div>
-
-            {{ form.submit(class="btn btn-lg btn-block btn-primary") }}
 
         </form>
     </div>

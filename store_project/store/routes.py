@@ -83,8 +83,16 @@ def login_page():
 
 
 @app.route('/profile', methods=['GET','POST'])
+@login_required
 def profile_page():
-    return render_template("user_profile.html")
+    form = EditForm()
+    if form.validate_on_submit():
+        x = 2
+    if form.errors != {}:
+         flash('Saving failed invalid Input/Inputs', category='danger')
+    
+
+    return render_template("user_profile.html",form=form)
 
 
 

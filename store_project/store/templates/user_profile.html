@@ -11,15 +11,78 @@
                     <h2>My profile</h2>
                     <div class="mx-auto " id="profile_nav">
                      <div id= "profile_nav_info">
-                        <button id="first">User Information</button>
-                        <button id="second">Orders </button>
+                        <button>User Information</button>
+                        <button>Orders </button>
                      </div>
                     </div>
-                    <div class="row">
-                      <div class="col-12"> 
+                    <div class="row overflow-auto" ></div>
+                      <div class="col-9 mx-auto" id="profile_display"> 
                         <div>
-                          
+                         <p>First Name: <span>jwwww</span></p>
                         </div>
+                        <div>
+                          <p>Last Name: <span>kumbaine</span></p>
+                        </div>
+                        <div>
+                          <p>Email Address: <span>kumbainr</span></p>
+                        </div>
+                        <div>
+                          <p>Phone Number: <span>+256787303030</span></p>
+                        </div>
+                        <div>
+                          <p>Country: <span>uganda</span></p>
+                        </div>
+                        <div>
+                          <p>Address 1: <span>Mukono,uganda</span></p>
+                        </div>
+                        <div>
+                          <p>Address 2: <span>...</span></p>
+                        </div>
+                        <div>
+                          <p>City: <span>...</span></p>
+                        </div>
+                        <div>
+                          <p>Zip: <span>....</span></p>
+                        </div>
+                        <div id="edit">
+                          <button type="button" class="btn btn-info" >Edit</button>
+                        </div>
+                      </div>
+                      <div class="col-9 mx-auto" >
+                      <form action=""method="post"></form>
+                      <div class="form-group" >
+                        {{ form.hidden_tag() }}
+
+                        {{ form.first_name.label(class="mt-4") }}
+                        {{ form.first_name(class="form-control h-25", placeholder="First Name") }}
+
+                        {{ form.last_name.label() }}
+                        {{ form.last_name(class="form-control h-25", placeholder="Last Name") }}
+
+                        {{ form.email_address.label() }}
+                        {{ form.email_address(class="form-control h-25", placeholder="Email Address") }}
+
+                        {{ form.phone_number.label() }}
+                        {{ form.phone_number(class="form-control h-25 ", placeholder="+25670000000") }}
+
+                        {{ form.country.label() }}
+                        {{ form.country(class="form-control  h-25", placeholder="Country") }}
+
+                        {{ form.address1.label() }}
+                        {{ form.address1(class="form-control  h-25 ", placeholder="Address") }}
+
+                        {{ form.address2.label() }}
+                        {{ form.address2(class="form-control h-25", placeholder="Address")}}
+
+                        {{ form.zip_address.label() }}
+                        {{ form.zip_address(class="form-control h-25", placeholder="Zip") }}
+
+                        {{ form.city.label() }}
+                        {{ form.city(class="form-control h-25 mb-3", placeholder="City") }}
+                        <div id="submit2">
+                        {{ form.submit2(class="form-control btn btn-info w-25 h-25 mx-5") }}
+                        </div>
+                      </div>
                       </div>
                     </div>
                 </div>

@@ -14,16 +14,16 @@
             </h1>
             <br>
             {{ form.username.label() }}
-            {{ form.username(class="form-control", placeholder="User Name") }}
+            {{ form.username(class="form-control w-50 mx-auto", placeholder="User Name") }}
 
             {{ form.email_address.label() }}
-            {{ form.email_address(class="form-control", placeholder="Email Address") }}
+            {{ form.email_address(class="form-control w-50 mx-auto", placeholder="Email Address") }}
 
             {{ form.password1.label() }}
-            {{ form.password1(class="form-control", placeholder="Password") }}
+            {{ form.password1(class="form-control w-50 mx-auto", placeholder="Password") }}
 
             {{ form.password2.label() }}
-            {{ form.password2(class="form-control", placeholder="Confirm Password") }}
+            {{ form.password2(class="form-control w-50 mx-auto", placeholder="Confirm Password") }}
 
             <br>
 
@@ -32,7 +32,7 @@
                <a class="btn btn-sm btn-secondary" href="{{ url_for('login_page') }}">Login</a>
             </div>
 
-            {{ form.submit(class="btn btn-lg btn-block btn-primary") }}
+            {{ form.submit(class="btn btn-lg btn-block btn-primary w-50 mx-auto") }}
 
         </form>
     </div>

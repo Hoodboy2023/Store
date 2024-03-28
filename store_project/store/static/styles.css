@@ -56,13 +56,40 @@ body {
     background-color: #212121;
     border: none;
     font-size: 1.7vw;
-    color: white;
+    color: rgb(255, 253, 253);
     margin: 3px auto;
     padding: auto;
     outline: none;
 }
 
+#profile_display {
+    display: none;
+    margin-right: 20px;
+    margin-left: 20px;
+    margin-top: 20px;
+}
 
+#profile_display div {
+    text-align: left;
+}
+     
+#profile_display > div > p > span {
+    margin-left: 20px;
+}
+
+#edit {
+   display: flex;
+   justify-content: center;
+}
+
+#edit > button {
+    border-radius: 9px;
+}
+
+#submit2 {
+    display: flex;
+    justify-content: center;
+}
 @media only screen and (max-width: 768px) {
 
     #profile_nav{
@@ -79,6 +106,10 @@ body {
         margin: 2px auto;
         padding: auto;
         outline: none;
+    }
+
+    p{
+        font-size: 12px
     }
     
 }
