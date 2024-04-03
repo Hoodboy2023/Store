@@ -2,6 +2,7 @@ body {
     position: relative;
     background-color: #212121;
     color: white;
+    overflow-x: hidden;
     }
 * {
       box-sizing: border-box;
@@ -63,10 +64,13 @@ body {
 }
 
 #profile_display {
-    display: none;
+    display:block;
     margin-right: 20px;
     margin-left: 20px;
     margin-top: 20px;
+}
+#edit_display {
+    display: none;
 }
 
 #profile_display div {
@@ -86,7 +90,7 @@ body {
     border-radius: 9px;
 }
 
-#submit2 {
+#submit_2 {
     display: flex;
     justify-content: center;
 }

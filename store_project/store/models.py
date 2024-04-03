@@ -2,6 +2,7 @@ from store import db, login_manager
 from store import bcrypt
 from flask_login import UserMixin
 
+
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
@@ -11,8 +12,18 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(length=30), nullable=False, unique=True)
     email_address = db.Column(db.String(length=50), nullable=False, unique=True)
     password_hash = db.Column(db.String(length=60), nullable=False)
-    budget = db.Column(db.Integer(), nullable=False, default=1000)
-    items = db.relationship('Item', backref='owned_user', lazy=True)
+    first_name = db.Column(db.String(length=15), nullable=False)
+    last_name = db.Column(db.String(length=15), nullable=False)
+    phone_number = db.Column(db.String(length=15), nullable=False)
+    country = db.Column(db.String(), nullable=False)
+    address1 =  db.Column(db.String(length=30), nullable=False)
+    address2 = db.Column(db.String(length=30), nullable=False)
+    zip = db.Column(db.String(length=15), nullable=False)
+    city =  db.Column(db.String(length=20), nullable=False)
+
+
+    #budget = db.Column(db.Integer(), nullable=False, default=1000)
+    # items = db.relationship('Item', backref='owned_user', lazy=True)
 
     @property
     def password(self):
@@ -50,3 +61,4 @@ class User(db.Model, UserMixin):
         self.owner = None
         user.budget += self.price
         db.session.commit() """
+        #print(user.id, user.username, user.email_address, user.first_name, user.last_name, user.phone_number, user.country, user.address1, user.address2, user.zip, user.city)

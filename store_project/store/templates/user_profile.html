@@ -18,71 +18,75 @@
                     <div class="row overflow-auto" ></div>
                       <div class="col-9 mx-auto" id="profile_display"> 
                         <div>
-                         <p>First Name: <span>jwwww</span></p>
+                         <p><strong>First Name:</strong> <span>{{ current_user.first_name }}</span></p>
                         </div>
                         <div>
-                          <p>Last Name: <span>kumbaine</span></p>
+                          <p><strong>Last Name:</strong> <span>{{ current_user.last_name }}</span></p>
                         </div>
                         <div>
-                          <p>Email Address: <span>kumbainr</span></p>
+                          <p><strong>Email Address:</strong> <span>{{ current_user.email_address }}</span></p>
                         </div>
                         <div>
-                          <p>Phone Number: <span>+256787303030</span></p>
+                          <p><strong>Phone Number:</strong> <span>{{ current_user.phone_number}}</span></p>
                         </div>
                         <div>
-                          <p>Country: <span>uganda</span></p>
+                          <p><strong>Country:</strong> <span>{{ current_user.country }}</span></p>
                         </div>
                         <div>
-                          <p>Address 1: <span>Mukono,uganda</span></p>
+                          <p><strong>Address 1:</strong> <span>{{ current_user.address1 }}</span></p>
                         </div>
                         <div>
-                          <p>Address 2: <span>...</span></p>
+                          <p><strong>Address 2:</strong> <span>{{ current_user.address2 }}</span></p>
                         </div>
                         <div>
-                          <p>City: <span>...</span></p>
+                          <p><strong>City:</strong> <span>{{ current_user.city }}</span></p>
                         </div>
                         <div>
-                          <p>Zip: <span>....</span></p>
+                          <p><strong>Zip:</strong> <span>{{ current_user.zip}}</span></p>
                         </div>
                         <div id="edit">
-                          <button type="button" class="btn btn-info" >Edit</button>
+                          <button type="button" class="btn btn-info" id="displaytoggle1">Edit</button>
                         </div>
                       </div>
-                      <div class="col-9 mx-auto" >
-                      <form action=""method="post"></form>
-                      <div class="form-group" >
-                        {{ form.hidden_tag() }}
+                      <div class="col-9 mx-auto" id="edit_display">
+                        <form action=""method="post">
+                          <div class="form-group" >
+                            {{ form.hidden_tag() }}
 
-                        {{ form.first_name.label(class="mt-4") }}
-                        {{ form.first_name(class="form-control h-25", placeholder="First Name") }}
+                            {{ form.first_name.label(class="mt-4") }}
+                            {{ form.first_name(class="form-control h-25", placeholder="First Name") }}
 
-                        {{ form.last_name.label() }}
-                        {{ form.last_name(class="form-control h-25", placeholder="Last Name") }}
+                            {{ form.last_name.label() }}
+                            {{ form.last_name(class="form-control h-25", placeholder="Last Name") }}
 
-                        {{ form.email_address.label() }}
-                        {{ form.email_address(class="form-control h-25", placeholder="Email Address") }}
+                            {{ form.username.label() }}
+                            {{ form.username(class="form-control h-25", placeholder="Username")}}
 
-                        {{ form.phone_number.label() }}
-                        {{ form.phone_number(class="form-control h-25 ", placeholder="+25670000000") }}
+                            {{ form.email_address.label() }}
+                            {{ form.email_address(class="form-control h-25", placeholder="Email Address") }}
 
-                        {{ form.country.label() }}
-                        {{ form.country(class="form-control  h-25", placeholder="Country") }}
+                            {{ form.phone_number.label() }}
+                            {{ form.phone_number(class="form-control h-25 ", placeholder="+25670000000") }}
 
-                        {{ form.address1.label() }}
-                        {{ form.address1(class="form-control  h-25 ", placeholder="Address") }}
+                            {{ form.country.label() }}
+                            {{ form.country(class="form-control  h-25", placeholder="Country") }}
 
-                        {{ form.address2.label() }}
-                        {{ form.address2(class="form-control h-25", placeholder="Address")}}
+                            {{ form.address1.label() }}
+                            {{ form.address1(class="form-control  h-25 ", placeholder="Address") }}
 
-                        {{ form.zip_address.label() }}
-                        {{ form.zip_address(class="form-control h-25", placeholder="Zip") }}
+                            {{ form.address2.label() }}
+                            {{ form.address2(class="form-control h-25", placeholder="Address")}}
 
-                        {{ form.city.label() }}
-                        {{ form.city(class="form-control h-25 mb-3", placeholder="City") }}
-                        <div id="submit2">
-                        {{ form.submit2(class="form-control btn btn-info w-25 h-25 mx-5") }}
-                        </div>
-                      </div>
+                            {{ form.zip_address.label() }}
+                            {{ form.zip_address(class="form-control h-25", placeholder="Zip") }}
+
+                            {{ form.city.label() }}
+                            {{ form.city(class="form-control h-25 mb-3", placeholder="City") }}
+                            <div id="submit_2">
+                            {{ form.submit2(class="form-control btn btn-info w-25 h-25 mx-5") }}
+                            </div>
+                          </div>
+                        </form>
                       </div>
                     </div>
                 </div>

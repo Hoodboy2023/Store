@@ -1,9 +1,11 @@
 from store import app
 from flask import render_template, redirect, url_for, flash, request
-from store.models import Item, User
-from store.forms import RegisterForm, LoginForm, PurchaseItemForm, SellItemForm
+from store.models import User
+from store.forms import RegisterForm, LoginForm, PurchaseItemForm, SellItemForm,EditForm
 from store import db
 from flask_login import login_user, logout_user, login_required, current_user
+from store import bcrypt
+from flask import jsonify
 
 @app.route('/')
 @app.route('/home')
@@ -16,23 +18,22 @@ def home_page():
 @app.route('/market', methods=['GET', 'POST'])
 @login_required
 def market_page():
-    purchase_form = PurchaseItemForm()
-    selling_form = SellItemForm()
     if request.method == "POST":
+         #p_item_object = Item.query.filter_by(name=purchased_item).first()
         return redirect(url_for('market_page'))
 
-    if request.method == "GET":
-        items = Item.query.filter_by(owner=None)
-        owned_items = Item.query.filter_by(owner=current_user.id)
-        return render_template('market.html', items=items, purchase_form=purchase_form, owned_items=owned_items, selling_form=selling_form)
+    if request.method == "GET": 
+        return render_template('market.html')
 
 @app.route('/register', methods=['GET', 'POST'])
 def register_page():
     form = RegisterForm()
     if form.validate_on_submit():
-        user_to_create = User(username=form.username.data,
-                              email_address=form.email_address.data,
-                              password=form.password1.data)
+        user_to_create = User(username=form.username.data, email_address=form.email_address.data, password=form.password1.data,
+                              first_name=form.first_name.data, last_name=form.last_name.data, country=form.country.data,
+                              zip=form.zip_address.data, city=form.city.data, address1=form.address1.data, address2=form.address2.data,
+                              phone_number=form.phone_number.data
+                              )
         db.session.add(user_to_create)
         db.session.commit()
         login_user(user_to_create)
@@ -68,12 +69,30 @@ def profile_page():
     if form.validate_on_submit():
         x = 2
     if form.errors != {}:
-         flash('Saving failed invalid Input/Inputs', category='danger')
-    
+         for err_msg in form.errors.values():
+            flash(f'There was an error with creating a user: {err_msg}', category='danger')
 
     return render_template("user_profile.html",form=form)
 
 
+@app.route('/profileInfo', methods=['GET'])
+@login_required
+def profileInfo():
+    user_info = {
+        "First Name": current_user.first_name,
+        "Last Name": current_user.last_name,
+        "Username": current_user.username,
+        "Email Address": current_user.email_address,
+        "Phone Number": current_user.phone_number,
+        "Country": current_user.country,
+        "Address1": current_user.address1,
+        "Address2": current_user.address2,
+        "Zip": current_user.zip,
+        "City": current_user.city
+    }
+
+    return jsonify(user_info)
+        
 
 
 @app.route('/logout')
@@ -81,5 +100,3 @@ def logout_page():
     logout_user()
     flash("You have been logged out!", category='info')
     return redirect(url_for("home_page"))
-hey = User()
-name = hey.username
