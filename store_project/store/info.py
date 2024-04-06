@@ -238,3 +238,38 @@ countries = countries = ["Afghanistan", "Albania", "Algeria",
     "Zambia",
     "Zimbabwe"
 ]
+
+variant_data = {
+       "660fe95235301db5dc0be546": [{
+           "variant_id": "102127",
+           "price": 55.97 
+       }],
+       "660fe79cb00c0954bc06d45c": [{
+           "variant_id": "71924",
+           "price": 16.12
+       }],
+       "660ee8b257d5cc42e502eb12": [{
+           "variant_id": "18102",
+           "price": 16.93
+       }],
+       "660ee8b257d5cc42e502eb11": [{
+           "variant_id": "73204",
+           "price": 23.28
+       }],
+       "660ee8b157d5cc42e502eb10": [{
+           "variant_id": "25459",
+           "price": 27.98
+       }],
+       "660ee8b157d5cc42e502eb0f": [{
+           "variant_id": "73207",
+           "price": 23.28
+       }],
+       "660ee8b157d5cc42e502eb0e": [{
+           "variant_id": "32920",
+           "price": 33.90
+       }],
+       "660ee8b057d5cc42e502eb0d": [{
+           "variant_id": "33793",
+           "price": 20.05
+       }]
+    }

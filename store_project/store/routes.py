@@ -1,11 +1,14 @@
 from store import app
 from flask import render_template, redirect, url_for, flash, request
-from store.models import User
+from store.models import User,Item
 from store.forms import RegisterForm, LoginForm, PurchaseItemForm, SellItemForm,EditForm
 from store import db
 from flask_login import login_user, logout_user, login_required, current_user
 from store import bcrypt
 from flask import jsonify
+from store import PRINTIFY_API_KEY, BASE_URL_PRINTIFY,SHOP_ID
+import requests
+from store.info import variant_data
 
 @app.route('/')
 @app.route('/home')
@@ -67,10 +70,16 @@ def login_page():
 def profile_page():
     form = EditForm()
     if form.validate_on_submit():
-        x = 2
+        user_to_create = User(username=form.username.data, email_address=form.email_address.data, password=form.password1.data,
+                              first_name=form.first_name.data, last_name=form.last_name.data, country=form.country.data,
+                              zip=form.zip_address.data, city=form.city.data, address1=form.address1.data, address2=form.address2.data,
+                              phone_number=form.phone_number.data
+                              )
+        db.session.add(user_to_create)
+        db.session.commit()
     if form.errors != {}:
-         for err_msg in form.errors.values():
-            flash(f'There was an error with creating a user: {err_msg}', category='danger')
+        for err_msg in form.errors.values():
+            flash(err_msg[0], category='danger')
 
     return render_template("user_profile.html",form=form)
 
@@ -93,8 +102,30 @@ def profileInfo():
 
     return jsonify(user_info)
         
-
-
+@app.route('/get_products', methods=['GET','POST'])
+@login_required
+def get_products():
+    products = []
+    URL = BASE_URL_PRINTIFY + f"shops/{SHOP_ID}/products.json"
+    headers = {
+        'Authorization': f'Bearer {PRINTIFY_API_KEY}',
+        'Content-Type': 'application/json'
+    }
+    try:
+        response = requests.get(URL, headers=headers)
+        response.raise_for_status()  
+        products_data = response.json()
+        for product in products_data:
+            variants= variant_data[product["id"]]
+            item_to_create = Item(id=product["id"],variant_id=variants["variant_id"],title=product['title'],
+                                  description=product['description'],price=variants["price"],image=product["images"][0]["src"])
+            db.session.add(item_to_create)
+            db.session.commit()
+        return render_template('api.html',products_data = products_data )
+    except requests.exceptions.RequestException as e:
+        return f"Error: {e}"
+   
+    
 @app.route('/logout')
 def logout_page():
     logout_user()

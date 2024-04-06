@@ -3,7 +3,7 @@ from wtforms import StringField, PasswordField, SubmitField, HiddenField, Select
 from wtforms.validators import Length, EqualTo, Email, DataRequired, ValidationError, Regexp
 from store.models import User
 from store.info import countries
-
+from flask_login import current_user
 
 class RegisterForm(FlaskForm):
     def validate_username(self, username_to_check):
@@ -34,14 +34,20 @@ class RegisterForm(FlaskForm):
 
 class EditForm(FlaskForm):
     def validate_username(self, username_to_check):
-        user = User.query.filter_by(username=username_to_check.data).first()
-        if user:
-            raise ValidationError('Username already exists! Please try a different username')
+        if current_user.username == username_to_check.data:
+            pass
+        else:
+            user = User.query.filter_by(username=username_to_check.data).first()
+            if user:
+                raise ValidationError('Username already exists! Please try a different username')
 
     def validate_email_address(self, email_address_to_check):
-        email_address = User.query.filter_by(email_address=email_address_to_check.data).first()
-        if email_address:
-            raise ValidationError('Email Address already exists! Please try a different email address')
+        if current_user.email_address == email_address_to_check.data: 
+            pass
+        else: 
+            email_address = User.query.filter_by(email_address=email_address_to_check.data).first()
+            if email_address:
+                raise ValidationError('Email Address already exists! Please try a different email address')
     
     username = StringField(label='User Name:', validators=[Length(min=2, max=30), DataRequired()])
     email_address = StringField(label='Email Address:', validators=[Email(message="Invalid Email address!!"), DataRequired()])
