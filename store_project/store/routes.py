@@ -115,12 +115,12 @@ def get_products():
         response = requests.get(URL, headers=headers)
         response.raise_for_status()  
         products_data = response.json()
-        for product in products_data:
+        '''for product in products_data:
             variants= variant_data[product["id"]]
             item_to_create = Item(id=product["id"],variant_id=variants["variant_id"],title=product['title'],
                                   description=product['description'],price=variants["price"],image=product["images"][0]["src"])
             db.session.add(item_to_create)
-            db.session.commit()
+            db.session.commit()'''
         return render_template('api.html',products_data = products_data )
     except requests.exceptions.RequestException as e:
         return f"Error: {e}"
