@@ -86,9 +86,10 @@
 
       {% endblock %}
       {% if current_user.is_authenticated %}
-      <div class="col-6 col-lg-4 shadow-lg" id="cart">
-        <h2>Owned Items</h2>
-        <p>Click on sell item to put an item back on the Market</p>
+      <div class="col-6 col-lg-4 " id="cart">
+        <h2>Cart</h2>
+        <div id="purchased_items"></div>
+        <h5 class="text-center">Sub-total: <span id="total_price"></span></h5>
         <br>
         <div class="row">
         </div>

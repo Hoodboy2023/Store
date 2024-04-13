@@ -4,11 +4,21 @@ Market Page
 {% endblock %}
 {% block content %}
 
-<div class="col-12" >
+<div class="col-12">
       <h2>Available Products</h2>
         <div class="container">
-         <div class="col-12" id="products">
-            
+         <div class="row">
+          <div class="col-12" id="products">
+            {% for item in items %}
+              <div class= "mb-3 mx-1 w card bg-dark mx-auto rounded-lg items" style="width: 25vw">
+                <img src="{{item.image}}" class="card-img-top" alt="{{item.image}}">
+                <div class="card-body">
+                  <p class="card-text">{{item.title}}</p>
+                  <button type="button" id="{{item.id}}" class="btn btn-primary btn-sm button_item">${{item.price}}</button>
+                </div>
+              </div>
+            {% endfor %}
+          </div>  
          </div>
         </div>
       <br>

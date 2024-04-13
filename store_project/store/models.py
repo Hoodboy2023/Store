@@ -8,13 +8,18 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 
 
-purchases = db.Table('purchases',
-                     db.Column('user_id',db.String(), db.ForeignKey('user.id'), primary_key=True),
-                     db.Column('product_id', db.String(), db.ForeignKey('item.id'), primary_key=True),
-                     db.Column('quantity', db.Integer(), nullable=False, default=1)
-                     )    
+class UserItem(db.Model):
+    __tablename__ = 'UserItem' 
+    id = db.Column(db.Integer(),primary_key=True)
+    user_id = db.Column(db.String(), db.ForeignKey('User.id'))
+    product_id = db.Column(db.String(), db.ForeignKey('Item.id'))
+    quantity = db.Column(db.Integer(), nullable=False, default=1)
+
+    user = db.relationship('User', back_populates='items')
+    item = db.relationship('Item', back_populates='users')
 
 class User(db.Model, UserMixin):
+    __tablename__ = 'User'
     id = db.Column(db.Integer(), primary_key=True)
     username = db.Column(db.String(length=30), nullable=False, unique=True)
     email_address = db.Column(db.String(length=50), nullable=False, unique=True)
@@ -28,7 +33,7 @@ class User(db.Model, UserMixin):
     zip = db.Column(db.String(length=15), nullable=False)
     city =  db.Column(db.String(length=20), nullable=False)
     
-
+    items =  db.relationship('UserItem', back_populates='user')
 
     #budget = db.Column(db.Integer(), nullable=False, default=1000)
     # items = db.relationship('Item', backref='owned_user', lazy=True)
@@ -43,18 +48,21 @@ class User(db.Model, UserMixin):
 
     def check_password_correction(self, attempted_password):
         return bcrypt.check_password_hash(self.password_hash, attempted_password)
+    def __repr__(self):
+        return f'<User {self.username}>'
 
 class Item(db.Model):
-    id = db.Column(db.Integer(), primary_key=True)
+    __tablename__ = 'Item'
+    id = db.Column(db.String(), primary_key=True)
     title = db.Column(db.String(length=30), nullable=False)
     price = db.Column(db.Integer(), nullable=False)
     variant_id = db.Column(db.String(), nullable=False)
-    description = db.Column(db.String(length=1024), nullable=False)
+    description = db.Column(db.String(), nullable=False)
     image = db.Column(db.String(), nullable=False)
     
-
-    buyers =  db.relationship('User', secondary=purchases, backref=db.backref('items',lazy='dynamic'))
+    users = db.relationship('UserItem', back_populates='item')
+    
     def __repr__(self):
-        return f'Item {self.name}'
+        return f'<Item {self.name}>'
 
         #print(user.id, user.username, user.email_address, user.first_name, user.last_name, user.phone_number, user.country, user.address1, user.address2, user.zip, user.city)

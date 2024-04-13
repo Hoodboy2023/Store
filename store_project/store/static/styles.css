@@ -63,6 +63,11 @@ body {
     outline: none;
 }
 
+#products {
+    display: flex;
+    flex-wrap: wrap;
+}
+
 #profile_display {
     display:block;
     margin-right: 20px;
@@ -115,5 +120,13 @@ body {
     p{
         font-size: 12px
     }
+
+    h6{
+        font-size: 11px;
+    }
     
+    .items {
+        width: 150px;
+
+    }
 }

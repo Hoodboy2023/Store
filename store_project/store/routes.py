@@ -1,6 +1,6 @@
 from store import app
 from flask import render_template, redirect, url_for, flash, request
-from store.models import User,Item
+from store.models import User,Item, UserItem
 from store.forms import RegisterForm, LoginForm, PurchaseItemForm, SellItemForm,EditForm
 from store import db
 from flask_login import login_user, logout_user, login_required, current_user
@@ -26,7 +26,8 @@ def market_page():
         return redirect(url_for('market_page'))
 
     if request.method == "GET": 
-        return render_template('market.html')
+        items =  Item.query.all()
+        return render_template('market.html',items=items)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register_page():
@@ -101,6 +102,48 @@ def profileInfo():
     }
 
     return jsonify(user_info)
+
+@app.route("/cart", methods=['POST', 'GET'])
+@login_required
+def cart():
+    data =  request.json
+    buttonId = data["buttonId"]
+    
+    if request.method == 'POST':
+        user = User.query.filter_by(id=current_user.id).first()
+        item_exists = Item.query.filter_by(id=buttonId).first()
+        if item_exists:
+            checked_item = None
+            for item_to_check in user.items:
+                if item_to_check.item.id == buttonId:
+                    checked_item = item_to_check
+                    break
+            if checked_item:
+                checked_item.quantity += 1
+            else:
+                new_item = UserItem(user_id=current_user.id,product_id=buttonId)
+                db.session.add(new_item)
+            db.session.commit()
+            
+            response = []
+            total_price = 0
+            for user_item in user.items: 
+                item = user_item.item
+                item_total = item.price * user_item.quantity 
+                total_price += item_total
+                output = {
+                    "title": item.title,
+                    "image": item.image,
+                    "price": item.price,
+                    "quantity": user_item.quantity,
+                    "item_total": item_total
+                }
+                response.append(output)
+            response.append({"total_price": total_price
+                            })
+            print(response)
+            return jsonify(response)
+
         
 @app.route('/get_products', methods=['GET','POST'])
 @login_required
@@ -115,12 +158,13 @@ def get_products():
         response = requests.get(URL, headers=headers)
         response.raise_for_status()  
         products_data = response.json()
-        '''for product in products_data:
+
+        for product in products_data["data"]:
             variants= variant_data[product["id"]]
             item_to_create = Item(id=product["id"],variant_id=variants["variant_id"],title=product['title'],
                                   description=product['description'],price=variants["price"],image=product["images"][0]["src"])
             db.session.add(item_to_create)
-            db.session.commit()'''
+            db.session.commit()
         return render_template('api.html',products_data = products_data )
     except requests.exceptions.RequestException as e:
         return f"Error: {e}"
