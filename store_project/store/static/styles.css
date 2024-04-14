@@ -21,6 +21,10 @@ body {
     background-color: #212121;
     border-radius: 10px;
 }
+#cart_items{
+    max-height: 40vw;
+    overflow-y: scroll;
+}
 
 #cartButton {
     border: none;
@@ -43,13 +47,13 @@ body {
 
 @media (min-width: 992px) { 
     #cart{
-    display: none;
     position: absolute;
     left: 66%;
     top: 56px;
     border: 2px solid white;  
     background-color: #212121;
     border-radius: 10px; 
+    
     }
 }
 

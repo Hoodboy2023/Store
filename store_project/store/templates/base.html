@@ -87,12 +87,14 @@
       {% endblock %}
       {% if current_user.is_authenticated %}
       <div class="col-6 col-lg-4 " id="cart">
+        <div id="cart_items">
         <h2>Cart</h2>
         <div id="purchased_items"></div>
         <h5 class="text-center">Sub-total: <span id="total_price"></span></h5>
         <br>
         <div class="row">
         </div>
+      </div>
      </div> 
       {% endif %}
       </div>

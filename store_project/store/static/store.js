@@ -85,7 +85,7 @@ let isEditDisplayVisible = false;
            data.forEach((item => {
             if (!item.hasOwnProperty('total_price')) {
                  purchasedItem.innerHTML += `<div class="purchased_items">
-                   <img style='width:10px; height:10px;'src="${item['image']}"> <p>${item['title']}</p> <p>${item['quantity']}</p>
+                   <img style='width:50px; height: 50px;'src="${item['image']}"> <p>${item['title']}</p> <p>${item['quantity']}</p>
                  </div`
             }
             totalPrice.innerHTML = item['total_price']
